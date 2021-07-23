@@ -153,15 +153,15 @@ model = MLP(input=cfg.N_COLORS*cfg.N_SHAPES, hidden=100, output=cfg.N_ACTIONS)
 
 # Loop through each phase
 for train_phase, test_data in train_phase_data.items():
-  # Train on that particular phase
-  for X, y in train_data:
-	# Some training function
-	train(model, X, y) 
+    # Train on that particular phase
+    for X, y in train_data:
+        # Some training function
+        train(model, X, y) 
 		
-	# Test the model on all the phase data
-	for test_phase, test_data in test_phase_data.items():
-		# Some evaluation function that keeps track of the accuracy
-		metrics = evaluate_model(model, test_data)
+        # Test the model on all the phase data
+        for test_phase, test_data in test_phase_data.items():
+            # Some evaluation function that keeps track of the accuracy
+            metrics = evaluate_model(model, test_data)
 			
 # Plot the metrics with some plotting function
 plot_metrics(metrics)
