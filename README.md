@@ -29,7 +29,7 @@ then asked to select one of four keys corresponding to the correct action for
 that particular shape and color combination. For all phases, below is figure 1C
 showing the mapping from shapes and colors to actions:
 
-<img src="images/phases_shapes_colors_actions.png" class="center"> 
+<img src="images/phases_shapes_colors_actions" class="center"> 
 
 Here the shapes correspond to S1 through S4, the colors correspond to C0 to C4,
 and the actions correspond to A1 to A4. Participants were shown the stimuli in
@@ -166,6 +166,7 @@ for train_phase, test_data in train_phase_data.items():
 # Plot the metrics with some plotting function
 plot_metrics(metrics)
 ```
+
 <img src="images/phase_train_test.png" class="center"> 
 
 The plot shows three curves corresponding to the testing set for phase A, B, and
