@@ -5,7 +5,7 @@
 </div>
 
 Code that implements the task described in Collins, Frank (2016) task in
-[Neural signature of hierarchically structured expectations predictsclustering and transfer of rule sets in reinforcement learning][1].
+[Neural signature of hierarchically structured expectations predicts clustering and transfer of rule sets in reinforcement learning][1].
 The package can be installed for general reuse and extension.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
@@ -104,8 +104,8 @@ from hierarchical_generalization.make_datasets import generate_phase_train_test_
 train_data, test_data = generate_phase_train_test_data() 
 ```
 
-2. `generate_taskset_test_data` - Generates auxiliary an testing data 
-dictionary that is seprated by the different task sets.
+2. `generate_taskset_test_data` - Generates an auxiliary testing set 
+dictionary that is separated by the different task sets.
 
 ```python
 from hierarchical_generalization.make_datasets import generate_taskset_test_data
@@ -114,7 +114,7 @@ from hierarchical_generalization.make_datasets import generate_taskset_test_data
 ts_test_data = generate_taskset_test_data()
 ```
 
-3. `generate_task_data` - Generates the phase train, phase test, and taskset
+3. `generate_task_data` - Generates the phase train, phase test, and task-set
 test datasets and ensures the arguments are consistent between the three.
 
 ```python
@@ -127,11 +127,11 @@ phase_train_data, phase_test_data, ts_test_data = generate_task_data()
 ## Example Use-Cases
 
 The examples below will show pseudocode of how the task has been used previously, 
-and  therefore how it can be used going forward. For illustrative purposes, 
+and therefore how it can be used going forward. For illustrative purposes, 
 training curves of a multilayer perceptron (MLP) are shown, along with how to 
 interpret the graphs. The MLP has `N_COLORS * N_SHAPES` input units, `100`
 hidden units, and `N_ACTIONS` output units. For all figures, the model is rerun
-`50` times with a random initialization.
+`50` times with random initialization.
 
 ### Training and Testing on Phase Data
 
@@ -153,15 +153,15 @@ model = MLP(input=cfg.N_COLORS*cfg.N_SHAPES, hidden=100, output=cfg.N_ACTIONS)
 
 # Loop through each phase
 for train_phase, test_data in train_phase_data.items():
-	# Train on that particular phase
-	for X, y in train_data:
-		# Some training function
-		train(model, X, y) 
+  # Train on that particular phase
+  for X, y in train_data:
+	# Some training function
+	train(model, X, y) 
 		
-		# Test the model on all the phase data
-		for test_phase, test_data in test_phase_data.items():
-			# Some evaluation function that keeps track of the accuracy
-			metrics = evaluate_model(model, test_data)
+	# Test the model on all the phase data
+	for test_phase, test_data in test_phase_data.items():
+		# Some evaluation function that keeps track of the accuracy
+		metrics = evaluate_model(model, test_data)
 			
 # Plot the metrics with some plotting function
 plot_metrics(metrics)
@@ -175,12 +175,12 @@ indicates the end of one phase and the start of the next.
 
 As expected during the first phase (A), the accuracy of the phase A testing set 
 steadily increases until the end of the phase. This pattern applies to the phase
-B and C testing sets for the middle and right most training phases respectively.
+B and C testing sets for the middle and rightmost training phases respectively.
 Interestingly the performance on phase A remains high through phase B training
 and only begins to drop in phase C. Additionally, performance on phase C begins
 to increase by the end of phase B, perhaps indicating some level of 
-generalization. Training on phase C seems to cause catestrophic interference
-with what was learned in phase A and B, as indicated by the dip in performance
+generalization. Training on phase C seems to cause catastrophic interference
+with what was learned in phases A and B, as indicated by the dip in performance
 on those testing sets.
 
 <!-- Markdown References -->
