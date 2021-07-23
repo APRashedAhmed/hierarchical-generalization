@@ -14,8 +14,6 @@ def generate_phase_train_test_data(
 ):
     """Generates two dictionaries corresponding to the training and testing sets
     for the three phases of the task.
-
-    
     """
     phase_args = [phase_a_args, phase_b_args, phase_c_args]
     datasets = ({}, {})
@@ -36,6 +34,9 @@ def generate_taskset_test_data(
         phase_b_shapes=None,
         phase_c_shapes=None,
 ):
+    """Generates the taskset testing sets to evaluate how the model is doing on
+    a particular taskset as it trains.
+    """
     ts1_colors = ts1_colors or config.ts1_colors
     ts2_colors = ts2_colors or config.ts2_colors
     ts_old_colors = ts_old_colors or config.ts_old_colors
@@ -81,7 +82,8 @@ def generate_task_data(
         phase_a_shapes=None,
         phase_b_shapes=None,
         phase_c_shapes=None,
-):    
+):
+    """Generate the phase training, testing, and taskset data"""
     phase_args = [phase_a_args, phase_b_args, phase_c_args]
     ts1_colors = ts1_colors or config.ts1_colors
     ts2_colors = ts2_colors or config.ts2_colors
