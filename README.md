@@ -29,7 +29,7 @@ then asked to select one of four keys corresponding to the correct action for
 that particular shape and color combination. For all phases, below is figure 1C
 showing the mapping from shapes and colors to actions:
 
-<img src="images/phases_shapes_colors_actions" class="center"> 
+<img src="images/phases_shapes_colors_actions.png" class="center"> 
 
 Here the shapes correspond to S1 through S4, the colors correspond to C0 to C4,
 and the actions correspond to A1 to A4. Participants were shown the stimuli in
