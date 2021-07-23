@@ -89,14 +89,14 @@ def generate_task_data(
     # Go through checking to make sure color arguments match between the phase
     # arguments and taskset arguments
     for phase, args in zip('abc', phase_args):
-        colors = phase_args.get['colors'] or getattr(
+        colors = args.get('colors') or getattr(
             config, "phase_{}_colors".format(phase))
         if phase in 'ab':
-            assert ts1_colors in colors
-            assert ts2_colors in colors
+            assert all([c in colors for c in ts1_colors])
+            assert all([c in colors for c in ts2_colors])
         elif phase == 'c':
-            assert ts_old_colors in colors
-            assert ts_new_colors in colors
+            assert all([c in colors for c in ts_old_colors])
+            assert all([c in colors for c in ts_new_colors])
     
     train_data, test_phase_data = generate_phase_train_test_data(
         phase_a_args=phase_a_args,

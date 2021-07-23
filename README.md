@@ -45,6 +45,14 @@ And then install the repo using `pip`:
 pip install .
 ```
 
+Note: If planning on making changes to the code, it is better to install using
+the `setup.py` file directly:
+```bash
+python setup.py develop
+```
+Installing in this way will allow code changes to be reflected when importing,
+whereas installing with `pip` does not.
+
 ### Usage
 
 Once installed, the repo functions similarly to any package installed by `pip`

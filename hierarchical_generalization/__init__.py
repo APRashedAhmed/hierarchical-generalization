@@ -1,6 +1,5 @@
-from combinatorial_generalization import (
-    combigen,
+from hierarchical_generalization import (
+    taskset,
     default_configuration,
     make_datasets,
-    utils,
 )

@@ -78,11 +78,11 @@ def phase_c_labels(
     return phase_labels(n_samples, colors, shapes, p_colors, p_shapes)
 
 # Group the funcs above
-phase_labels_funcs = pdict({
+phase_labels_funcs = {
     'Phase A' : phase_a_labels,
     'Phase B' : phase_b_labels,
     'Phase C' : phase_c_labels
-})
+}
 
 # Some helper functions
 
