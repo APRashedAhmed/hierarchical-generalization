@@ -3,9 +3,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# High level constants
 N_COLORS = 5
 N_SHAPES = 4
 N_ACTIONS = 4
+
+phase_names = ("Phase A", "Phase B", "Phase C")
+
 
 # All the colors and shapes
 all_colors = [0, 1, 2, 3, 4]
@@ -52,3 +56,8 @@ ts1_colors = [0, 1]
 ts2_colors = [2]
 ts_old_colors = [3]
 ts_new_colors = [4]
+
+# Dataset parameters
+phase_a_n_samples = 120
+phase_b_n_samples = 120
+phase_c_n_samples = 120

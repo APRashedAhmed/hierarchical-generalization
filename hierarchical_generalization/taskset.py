@@ -39,7 +39,7 @@ def phase_labels(n_samples,
     return color_choices, shape_choices    
 
 def phase_a_labels(
-        n_samples=120, 
+        n_samples=config.phase_a_n_samples, 
         colors=config.phase_a_colors,
         shapes=config.phase_a_shapes,
         p_colors=None,
@@ -52,7 +52,7 @@ def phase_a_labels(
     return phase_labels(n_samples, colors, shapes, p_colors, p_shapes)
 
 def phase_b_labels(
-        n_samples=120, 
+        n_samples=config.phase_b_n_samples, 
         colors=config.phase_b_colors,
         shapes=config.phase_b_shapes,
         p_colors=None,
@@ -65,7 +65,7 @@ def phase_b_labels(
     return phase_labels(n_samples, colors, shapes, p_colors, p_shapes)
 
 def phase_c_labels(
-        n_samples=120, 
+        n_samples=config.phase_c_n_samples, 
         colors=config.phase_c_colors,
         shapes=config.phase_c_shapes,
         p_colors=None,
@@ -79,9 +79,8 @@ def phase_c_labels(
 
 # Group the funcs above
 phase_labels_funcs = {
-    'Phase A' : phase_a_labels,
-    'Phase B' : phase_b_labels,
-    'Phase C' : phase_c_labels
+    name : func for name, func in zip(
+        config.phase_names, [phase_a_labels, phase_b_labels, phase_c_labels])
 }
 
 # Some helper functions

@@ -145,5 +145,8 @@ dmypy.json
 # JetBrains
 .idea/
 
+# Ignore logs
+logs/*
+
 # But keep all the .gitkeep files
 !*.gitkeep
