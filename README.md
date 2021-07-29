@@ -13,11 +13,12 @@ The package can be installed for general reuse and extension.
 
   - [Description](#description)
   - [Getting Started](#getting-started)
-    - [Installation](#installation)
-    - [Usage](#usage)
+	  - [Installation](#installation)
+	  - [Usage](#usage)
   - [Generating Datasets](#generating-datasets)
-  - [Example Use-Cases](#example-use-cases)
-    - [Training and Testing on Phase Data](#training-and-testing-on-phase-data)
+  - [Example Use-Cases and Prior](#example-use-cases-and-prior)
+	  - [Training and Testing on Phase Data](#training-and-testing-on-phase-data)
+	  - [More Samples Per Phase](#more-samples-per-phase)
 
 <!-- markdown-toc end -->
 
@@ -29,7 +30,12 @@ then asked to select one of four keys corresponding to the correct action for
 that particular shape and color combination. For all phases, below is figure 1C
 showing the mapping from shapes and colors to actions:
 
-<img src="images/phases_shapes_colors_actions.png" class="center"> 
+<!-- Turns out centering images in GitHub `README.md`s is not that straight -->
+<!-- forward. See this SO post:  -->
+<!-- https://stackoverflow.com/questions/12090472/how-do-i-center-an-image-in-the-readme-md-file-on-github -->
+<p align="center" width="100%">
+    <img src="images/phases_shapes_colors_actions.png">
+</p>
 
 Here the shapes correspond to S1 through S4, the colors correspond to C0 to C4,
 and the actions correspond to A1 to A4. Participants were shown the stimuli in
@@ -124,14 +130,23 @@ from hierarchical_generalization.make_datasets import generate_task_data
 phase_train_data, phase_test_data, ts_test_data = generate_task_data()
 ```
 
-## Example Use-Cases
+## Example Use-Cases and Prior
 
-The examples below will show pseudocode of how the task has been used previously, 
-and therefore how it can be used going forward. For illustrative purposes, 
-training curves of a multilayer perceptron (MLP) are shown, along with how to 
-interpret the graphs. The MLP has `N_COLORS * N_SHAPES` input units, `100`
-hidden units, and `N_ACTIONS` output units. For all figures, the model is rerun
-`50` times with random initialization.
+The examples below will show pseudo-python of how the task has been used 
+previously, and therefore how it can be used going forward. 
+For illustrative purposes, training curves of a multilayer perceptron (MLP) are 
+shown, along with how to interpret the graphs. The MLP has `N_COLORS * N_SHAPES` 
+input units, `100` hidden units, and `N_ACTIONS` output units. For all figures,
+the model is rerun `50` times with random initialization. To view the full code
+written for `tensorflow=1.10`, see 
+[this notebook](https://github.com/APRashedAhmed/leabra-tf/blob/master/docs/source/notebooks/0.8-Hierarchical-Learning.ipynb).
+
+Note that in the original task, participants were shown between `40` and `120` 
+trials for phases A and B (or up to a criterion of 4 out of 5 last trials correct
+for each stimulus), and `80` trials for phase C. For simplicity, the examples 
+below were run using `120` trials for all phases, but can be modified using the
+`n_samples` argument for each phase (which is by default set to be `120`, `120`,
+and `80` for phases A, B and C, respectively) when defining task.
 
 ### Training and Testing on Phase Data
 
@@ -167,7 +182,9 @@ for train_phase, test_data in train_phase_data.items():
 plot_metrics(metrics)
 ```
 
-<img src="images/phase_train_test.png" class="center"> 
+<p align="center" width="100%">
+    <img src="images/phase_train_test.png">
+</p>
 
 The plot shows three curves corresponding to the testing set for phase A, B, and
 C, as a function of samples the model is shown. The vertical dashed line 
@@ -182,6 +199,73 @@ to increase by the end of phase B, perhaps indicating some level of
 generalization. Training on phase C seems to cause catastrophic interference
 with what was learned in phases A and B, as indicated by the dip in performance
 on those testing sets.
+
+### More Samples Per Phase
+
+One way further assess the generalization effects of the model at each phase is
+by presenting more samples per phase. This allows the model to better learn each
+phase before moving to the next one, allowing for more robust claims on 
+generalization. This can be done when defining the dataset:
+
+```python
+# Imports
+...
+
+# Set n_samples to 240 for each phase
+n_samples = 240
+phase_a_args, phase_b_args, phase_c_args = tuple({"n_samples": n_samples} for _ in range(3))
+
+# Pass the phase arg dictionaries as inputs to the dataset generation function
+train_phase_data, test_phase_data = generate_phase_train_test_data(
+    phase_a_args,
+    phase_b_args,
+    phase_c_args,
+) 
+
+# Rest of the code
+...
+```
+
+Alternatively, rather than sampling new points, each phase can be run for more 
+than one epoch for a similar effect:
+
+```python
+
+# n_samples to 120 and epochs to 2 gives the same as above
+n_samples = 120
+n_epochs = 2
+
+# Define the data and model as above
+...
+
+# Loop through each phase as usual
+for train_phase, test_data in train_phase_data.items():
+    # Loop epochs in side the phase loop
+	for epoch in range(n_epochs):
+        # Train on that particular phase
+        for X, y in train_data:
+			# Rest of the training and testing code
+		    ...
+			
+# Plot the results
+...
+```
+
+Which would yield results similar to the following:
+
+<p align="center" width="100%">
+    <img src="images/phase_train_test_two_epochs.png">
+</p>
+
+The plot above is identical to the one in the previous section but with twice as
+many samples as seen on the x-axis. Most of the task learning seems to happen by
+within the original `120` samples per phase.
+
+
+<!-- ### Testing On Task-Set Data -->
+
+<!-- The previous example trained the model on each of the phases sequentially, and -->
+<!-- tested on the phase data at every time step.  -->
 
 <!-- Markdown References -->
 

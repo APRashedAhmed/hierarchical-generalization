@@ -60,4 +60,4 @@ ts_new_colors = [4]
 # Dataset parameters
 phase_a_n_samples = 120
 phase_b_n_samples = 120
-phase_c_n_samples = 120
+phase_c_n_samples = 80
