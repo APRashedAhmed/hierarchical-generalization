@@ -13,12 +13,13 @@ The package can be installed for general reuse and extension.
 
   - [Description](#description)
   - [Getting Started](#getting-started)
-      - [Installation](#installation)
-      - [Usage](#usage)
+	  - [Installation](#installation)
+	  - [Usage](#usage)
   - [Generating Datasets](#generating-datasets)
-  - [Example Use-Cases and Prior Work](#example-use-cases-and-prior)
-      - [Training and Testing on Phase Data](#training-and-testing-on-phase-data)
-      - [More Samples Per Phase](#more-samples-per-phase)
+  - [Example Use-Cases and Prior Work](#example-use-cases-and-prior-work)
+	  - [Training and Testing on Phase Data](#training-and-testing-on-phase-data)
+	  - [More Samples Per Phase](#more-samples-per-phase)
+	  - [Testing On Task-Set Data](#testing-on-task-set-data)
 
 <!-- markdown-toc end -->
 
@@ -202,7 +203,7 @@ on those testing sets.
 
 ### More Samples Per Phase
 
-One way further assess the generalization effects of the model at each phase is
+One way to further assess the generalization effects of the model at each phase is
 by presenting more samples per phase. This allows the model to better learn each
 phase before moving to the next one, allowing for more robust claims on 
 generalization. This can be done when defining the dataset:
@@ -260,7 +261,7 @@ Which would yield results similar to the following:
 </p>
 
 The plot above is identical to the one in the previous section but with twice as
-many samples as seen on the x-axis. Most of the task learning seems to happen by
+many samples as seen on the x-axis. Most of the task learning seems to happen 
 within the original `120` samples per phase.
 
 
@@ -278,7 +279,7 @@ learned the task structure meaning they could transfer this knowledge to the new
     <img src="images/fig_2cd.png">
 </p>
 
-We can assess this form of transfer in a model by modifiying the previous 
+We can assess this form of transfer in a model by modifying the previous 
 examples to test the model on each task-set on every trial, to see if it 
 exhibits the same phenomena with the task-set performance.
 
@@ -320,7 +321,7 @@ on the right.
 
 Focusing on the left third of the graphs, it seems that the model learns 
 task-set `2` before learning task-set `1` since the model consistently reaches
-peak performance on that task-set before the other just like in the the paper
+peak performance on that task-set before the other just like in the paper
 (fig 2C).
 
 We can then repeat this for the phase `B` task-sets:
